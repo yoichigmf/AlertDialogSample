@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/AlertDialogSample" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
