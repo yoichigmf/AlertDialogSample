@@ -21,7 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QSound
 from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.PyQt.QtWidgets import QAction
 
@@ -187,9 +188,43 @@ class AlertDialogSample:
             self.iface.removeToolBarIcon(action)
 
 
+
+    def  playsound( self ):
+        soundfile = self.plugin_dir + "/sounds/" + "Warning-Siren03-mp3/Warning-Siren03-02(High-Long).mp3"
+        print("play sound " + soundfile )
+        url = QUrl.fromLocalFile(soundfile )
+        print(url)
+        self.player.setMedia(QMediaContent(url))
+        #self.player.setVolume(30)
+        self.player.play()
+
+        
+        #self.sound = QSound(soundfile)
+        #self.sound.play()
+
+        
+
+
+    def  stopsound( self ):
+
+        self.player.stop()
+        #self.sound.stop()
+        print("stop sound ")
+
+    def handle_state_changed(self, state):
+        if state == QMediaPlayer.PlayingState:
+            print("started")
+        elif state == QMediaPlayer.StoppedState:
+            print("finished")
+            #QtCore.QCoreApplication.quit()
+
     def  opendialog1(self):
         if self.first_start1 == True:
             self.first_start1 = False
+
+            self.player = QMediaPlayer()
+
+            self.player.stateChanged.connect(self.handle_state_changed)
 
             color1 = QColor(255, 0, 0)
             color2 = QColor(0, 255, 0)
@@ -197,9 +232,13 @@ class AlertDialogSample:
 
         print("dialog 1")
 
+        self.playsound()
         self.testdlg1.show()
         # Run the dialog event loop
         result = self.testdlg1.exec_()
+
+        self.stopsound()
+
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
@@ -214,7 +253,7 @@ class AlertDialogSample:
             self.testdlg2 = AlertDialog2_Dialog()
 
             self.testdlg2.start()
-            
+
 
         print("dialog 2")
 
