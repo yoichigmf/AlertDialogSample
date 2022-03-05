@@ -32,14 +32,29 @@
   <widget class="QPushButton" name="dialog1Button">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>50</y>
-     <width>93</width>
-     <height>28</height>
+     <x>30</x>
+     <y>30</y>
+     <width>241</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>open dialog</string>
+    <string>Background color change　
+using QPropertyAnimation </string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="dialog2Button">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Background color change　
+using QStateMachine</string>
    </property>
   </widget>
  </widget>

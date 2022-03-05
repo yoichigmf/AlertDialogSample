@@ -22,8 +22,9 @@
  ***************************************************************************/
 """
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.PyQt.QtWidgets import QAction
+
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -31,6 +32,8 @@ from .resources import *
 from .AlertDialogSample_dialog import AlertDialogSampleDialog
 
 from .AlertDialog_dialog import AlertDialog_Dialog
+
+from .AlertDialog2_dialog import AlertDialog2_Dialog
 import os.path
 
 
@@ -172,6 +175,8 @@ class AlertDialogSample:
         # will be set False in run()
         self.first_start = True
         self.first_start1 = True
+        self.first_start2 = True
+
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -185,7 +190,10 @@ class AlertDialogSample:
     def  opendialog1(self):
         if self.first_start1 == True:
             self.first_start1 = False
-            self.testdlg1 = AlertDialog_Dialog()
+
+            color1 = QColor(255, 0, 0)
+            color2 = QColor(0, 255, 0)
+            self.testdlg1 = AlertDialog_Dialog(color1, color2)
 
         print("dialog 1")
 
@@ -197,7 +205,27 @@ class AlertDialogSample:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
+    def  opendialog2(self):
+        if self.first_start2 == True:
+            self.first_start2 = False
 
+            #color1 = QColor(255, 0, 0)
+            #color2 = QColor(0, 255, 0)
+            self.testdlg2 = AlertDialog2_Dialog()
+
+            self.testdlg2.start()
+            
+
+        print("dialog 2")
+
+        self.testdlg2.show()
+        # Run the dialog event loop
+        result = self.testdlg2.exec_()
+        # See if OK was pressed
+        if result:
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
 
 
 
@@ -212,6 +240,7 @@ class AlertDialogSample:
             self.dlg = AlertDialogSampleDialog()
 
             self.dlg.dialog1Button.clicked.connect( self.opendialog1)
+            self.dlg.dialog2Button.clicked.connect( self.opendialog2)
 
         # show the dialog
         self.dlg.show()

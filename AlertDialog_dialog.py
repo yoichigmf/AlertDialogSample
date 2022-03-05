@@ -37,7 +37,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class AlertDialog_Dialog(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, parent=None):
+    def __init__(self, color1, color2, parent=None):
 
         
 
