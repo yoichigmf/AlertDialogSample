@@ -29,6 +29,8 @@ from qgis.PyQt.QtWidgets import QAction
 from .resources import *
 # Import the code for the dialog
 from .AlertDialogSample_dialog import AlertDialogSampleDialog
+
+from .AlertDialog_dialog import AlertDialog_Dialog
 import os.path
 
 
@@ -169,7 +171,7 @@ class AlertDialogSample:
 
         # will be set False in run()
         self.first_start = True
-
+        self.first_start1 = True
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -180,6 +182,26 @@ class AlertDialogSample:
             self.iface.removeToolBarIcon(action)
 
 
+    def  opendialog1(self):
+        if self.first_start1 == True:
+            self.first_start1 = False
+            self.testdlg1 = AlertDialog_Dialog()
+
+        print("dialog 1")
+
+        self.testdlg1.show()
+        # Run the dialog event loop
+        result = self.testdlg1.exec_()
+        # See if OK was pressed
+        if result:
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
+
+
+
+
+        #self.testdlg1 = 
     def run(self):
         """Run method that performs all the real work"""
 
@@ -188,6 +210,8 @@ class AlertDialogSample:
         if self.first_start == True:
             self.first_start = False
             self.dlg = AlertDialogSampleDialog()
+
+            self.dlg.dialog1Button.clicked.connect( self.opendialog1)
 
         # show the dialog
         self.dlg.show()

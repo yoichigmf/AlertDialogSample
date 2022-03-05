@@ -12,8 +12,8 @@ email=yoichi.kayama@gmail.com
 
 about=Sample program for making dialog
 
-tracker=http://bugs
-repository=https://github.com/yoichigmf/alertdialogsample
+tracker=https://github.com/yoichigmf/AlertDialogSample/issues
+repository=https://github.com/yoichigmf/AlertDialogSample
 # End of mandatory metadata
 
 # Recommended items:
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python dialog qt5
 
-homepage=http://homepage
+homepage=https://github.com/yoichigmf/AlertDialogSample
 category=Plugins
 icon=icon.png
 # experimental flag
