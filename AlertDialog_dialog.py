@@ -27,6 +27,10 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QPropertyAnimation, pyqtProperty
+from qgis.PyQt.QtGui import QColor,QPalette
+
+
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'alert_dialog_base.ui'))
@@ -34,11 +38,37 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 class AlertDialog_Dialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
+
+        
+
         """Constructor."""
         super(AlertDialog_Dialog, self).__init__(parent)
+
+        #QWidget.__init__(self)
         # Set up the user interface from Designer through FORM_CLASS.
         # After self.setupUi() you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        color1 = QColor(255, 0, 0)
+        color2 = QColor(0, 255, 0)
+
+        self.color_anim = QPropertyAnimation(self, b'backColor')
+        self.color_anim.setStartValue(color1)
+        self.color_anim.setKeyValueAt(0.5, color2)
+        self.color_anim.setEndValue(color1)
+        self.color_anim.setDuration(1000)
+        self.color_anim.setLoopCount(-1)
+        self.color_anim.start()
+
+    def getBackColor(self):
+        return self.palette().color(QPalette.Background)
+
+    def setBackColor(self, color):
+        pal = self.palette()
+        pal.setColor(QPalette.Background, color)
+        self.setPalette(pal)
+
+    backColor = pyqtProperty(QColor, getBackColor, setBackColor)
