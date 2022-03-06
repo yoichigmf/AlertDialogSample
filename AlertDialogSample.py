@@ -22,7 +22,7 @@
  ***************************************************************************/
 """
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QSound
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QSound,  QMediaPlaylist
 from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.PyQt.QtWidgets import QAction
 
@@ -189,12 +189,28 @@ class AlertDialogSample:
 
 
 
-    def  playsound( self ):
+    def  SetPlayList(self):
+        self._playlist = QMediaPlaylist()
+        self._stopped = True
         soundfile = self.plugin_dir + "/sounds/" + "Warning-Siren03-mp3/Warning-Siren03-02(High-Long).mp3"
-        print("play sound " + soundfile )
-        url = QUrl.fromLocalFile(soundfile )
-        print(url)
-        self.player.setMedia(QMediaContent(url))
+
+        self.addPlayLiet( soundfile )
+        self._playlist.setPlaybackMode( 3 )
+        self.player.setPlaylist(self._playlist)
+
+
+    def addPlayLiet( self, addFile ):
+        media_content = QMediaContent(QUrl.fromLocalFile(addFile))
+        self._playlist.addMedia(media_content)
+        #print("add")
+
+    def  playsound( self ):
+        #oundfile = self.plugin_dir + "/sounds/" + "Warning-Siren03-mp3/Warning-Siren03-02(High-Long).mp3"
+        #print("play sound " + soundfile )
+        #url = QUrl.fromLocalFile(soundfile )
+        #print(url)
+        #self.player.setMedia(QMediaContent(url))
+        #self.player.setLoops(1)
         #self.player.setVolume(30)
         self.player.play()
 
@@ -225,6 +241,8 @@ class AlertDialogSample:
             self.player = QMediaPlayer()
 
             self.player.stateChanged.connect(self.handle_state_changed)
+
+            self.SetPlayList()
 
             color1 = QColor(255, 0, 0)
             color2 = QColor(0, 255, 0)
