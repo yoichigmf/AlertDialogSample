@@ -297,7 +297,7 @@ class AlertDialogSample:
             self.dlg = AlertDialogSampleDialog()
 
             self.dlg.dialog1Button.clicked.connect( self.opendialog1)
-            self.dlg.dialog2Button.clicked.connect( self.opendialog2)
+            #self.dlg.dialog2Button.clicked.connect( self.opendialog2)
 
         # show the dialog
         self.dlg.show()
