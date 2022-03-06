@@ -52,8 +52,8 @@ class AlertDialog_Dialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
 
-        color1 = QColor(255, 0, 0)
-        color2 = QColor(0, 255, 0)
+        #color1 = QColor(255, 0, 0)
+        #color2 = QColor(0, 255, 0)
 
         self.color_anim = QPropertyAnimation(self, b'backColor')
         self.color_anim.setStartValue(color1)
